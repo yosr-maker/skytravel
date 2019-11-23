@@ -1,0 +1,35 @@
+callbacks.c 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
+#include <gtk/gtk.h>
+#include <config.h>
+#include "callbacks.h"
+#include "interface.h"
+#include "support.h"
+#include "greetingg.h"
+#include <gtk/gtk.h>
+#include <string.h>
+
+
+void on_boutonHello_clicked(GtkWidget *objet_graphique, gpointer user_data) 
+{
+GtkWidget *input ;
+GtkWidget *output;
+char nom[20];
+char hello [40];
+input = lookup_widget(objet_graphique, "entryNom") ;
+output = lookup_widget(objet_graphique, "labelHello") ;
+strcpy(nom,gtk_entry_get_text(GTK_ENTRY(input)));
+sayhello(nom,hello);
+gtk_label_set_text(GTK_LABEL(output),hello);
+}
+
+
+
+callbacks.h 
+#include <gtk/gtk.h>
+void on_boutonHello_clicked(GtkWidget *objet_graphique, gpointer user_data) ;
+            
+
