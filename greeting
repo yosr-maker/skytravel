@@ -1,0 +1,11 @@
+greetingg.c
+#include <string.h>
+#include "greetingg.h"
+void sayhello(char name[],char hello[])
+{
+strcpy(hello,"hello");
+strcat(hello, name);
+}
+
+greetingg.h 
+void sayhello(char name[],char hello[]);
