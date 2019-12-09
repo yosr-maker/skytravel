@@ -15,8 +15,11 @@
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *window5;
-  GtkWidget *window2;
+  GtkWidget *aceuil;
+  GtkWidget *ajout;
+  GtkWidget *modification;
+  GtkWidget *supression;
+  GtkWidget *affichage;
 
 #ifdef ENABLE_NLS
   bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -34,9 +37,8 @@ main (int argc, char *argv[])
    * (except popup menus), just so that you see something after building
    * the project. Delete any components that you don't want shown initially.
    */
-  window5 = create_window5 ();
-  gtk_widget_show (window5);
-
+  aceuil = create_aceuil ();
+  gtk_widget_show (aceuil);
 
   gtk_main ();
   return 0;
