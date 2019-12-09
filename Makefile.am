@@ -5,14 +5,14 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	@PACKAGE_CFLAGS@
 
-bin_PROGRAMS = crudi
+bin_PROGRAMS = projectreservation
 
-crudi_SOURCES = \
+projectreservation_SOURCES = \
 	main.c \
 	support.c support.h \
 	interface.c interface.h \
 	callbacks.c callbacks.h \
-	client.c client.h
+	vol.c vol.h 
 
-crudi_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
+projectreservation_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 

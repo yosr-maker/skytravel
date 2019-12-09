@@ -1,291 +1,542 @@
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
-#endif
 #include <string.h>
+#endif
+#include <stdio.h>
+#include <stdlib.h>
 #include <gtk/gtk.h>
-#include "client.h"
+
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
-
-
-void
-on_valider_clicked                     (GtkWidget       *button,
-                                        gpointer         user_data)
-{
-/*char combobox1;
-int a,b,e;
-client c;
-
-GtkWidget *input1,*input2, *input3, *input4,*input6,*input7,*input8,*input9,*input10;
-GtkWidget *sexe;
-char j[20];
-
-
-input1=lookup_widget(objet, "identifiant");
-input2=lookup_widget(objet, "nom");
-input3=lookup_widget(objet, "prenom");
-input4=lookup_widget(objet, "cin");
-sexe=lookup_widget(objet, "combobox3");
-strcpy(j,gtk_combo_box_get_active_text(GTK_COMBO_BOX(sexe)));
-
-input6=lookup_widget(objet, "jour");
-input7=lookup_widget(objet, "mois");
-input8=lookup_widget(objet, "annee");
-input9=lookup_widget(objet, "mail");
-input10=lookup_widget(objet, "password");
-
-strcpy(c.identifiant,gtk_entry_get_text(GTK_ENTRY(input1)));
-strcpy(c.nom,gtk_entry_get_text(GTK_ENTRY(input2)));
-strcpy(c.prenom,gtk_entry_get_text(GTK_ENTRY(input3)));
-strcpy(c.cin,gtk_entry_get_text(GTK_ENTRY(input4)));
-strcpy(combobox1,gtk_combo_box_get_active_text(GTK_COMBO_BOX(input5)));
-a=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(input6));
-b=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(input7));
-e=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(input8));
-strcpy(c.mail,gtk_entry_get_text(GTK_ENTRY(input9)));
-strcpy(c.password,gtk_entry_get_text(GTK_ENTRY(input10)));
-
-ajouter_client(c);*/
-GtkWidget *input1;
-GtkWidget *input2;
-GtkWidget *input3;
-GtkWidget *input4;
-GtkWidget *input5;
-GtkWidget *input6;
-GtkWidget *input7;
-GtkWidget *input8;
-GtkWidget *input9;
-GtkWidget *input10;
-FILE *f;
-char a[30],b[30],i[30],j[30],k[30],l[30],m[30]; int c,d,e;
-/*char a1[30],a2[30],a3[30],a4[30],a5[30],a6[30],a7[30],a8[30],a9[30],a10[30],a11[30],a12[30];*/
-input1=lookup_widget(button,"identifiant");
-strcpy(a,gtk_entry_get_text(GTK_ENTRY(input1)));
-
-input2=lookup_widget(button,"nom");
-strcpy(b,gtk_entry_get_text(GTK_ENTRY(input2)));
-
-input6=lookup_widget(button,"prenom");
-strcpy(i,gtk_entry_get_text(GTK_ENTRY(input6)));
-
-input8=lookup_widget(button,"cin");
-strcpy(k,gtk_entry_get_text(GTK_ENTRY(input8)));
-
-input7=lookup_widget(button, "combobox3");
-strcpy(j,gtk_combo_box_get_active_text(GTK_COMBO_BOX(input7)));
-
-input3=lookup_widget(button, "jour");
-c=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(input3));
-
-input4=lookup_widget(button,"mois");
-d=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(input4));
-
-input5=lookup_widget(button,"annee");
-e=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(input5));
-
-input9=lookup_widget(button,"mail");
-strcpy(l,gtk_entry_get_text(GTK_ENTRY(input9)));
-
-input10=lookup_widget(button,"password");
-strcpy(m,gtk_entry_get_text(GTK_ENTRY(input10)));
-
-f=fopen("/home/zac/Projects/crudi/src/clieent.txt","a+");
-	if(f!=NULL)
-	{
-   		fprintf(f,"%s %s %s %s %s %d %d %d %s %s \n",a,b,i,k,j,c,d,e,l,m); 
-   
-
-	}
-	fclose(f);
-		
-
-
-}
-
+#include "vol.h"
 
 
 
 void
-on_buttonconfirmer_clicked             (GtkWidget        *button,
+on_buttongestresvol_clicked            (GtkWidget       *button,
                                         gpointer         user_data)
 {
-FILE *f;
-GtkWidget *entryid2;
-GtkWidget *ancienn,*ancienp,*ancienc,*anciens,*ancienj,*ancienm,*anciena,*ancienmail,*ancienmdp;
-char a1[30],a2[30],a3[30],a4[30],a5[30],a6[30],a7[30],a8[30],a9[30],a10[30];
-char a[30];
-
-entryid2=lookup_widget(button,"identifiant2");
-strcpy(a,gtk_entry_get_text(GTK_ENTRY(entryid2)));
-
-ancienn=lookup_widget(button,"ancienn");
-ancienp=lookup_widget(button,"ancienp");
-ancienc=lookup_widget(button,"ancienc");
-anciens=lookup_widget(button,"anciens");
-ancienj=lookup_widget(button,"ancienj");
-ancienm=lookup_widget(button,"ancienm");
-anciena=lookup_widget(button,"anciena");
-ancienmail=lookup_widget(button,"ancienmail");
-ancienmdp=lookup_widget(button,"ancienmdp");
-
-
-
-
-
-
-f = fopen("/home/zac/Projects/crudi/src/clieent.txt", "r");
-while(fscanf(f,"%s %s %s %s %s %s %s %s %s %s ",a1,a2,a3,a4,a5,a6,a7,a8,a9,a10)!=EOF)
-{
-if(strcmp(a,a1)==0)
-{gtk_label_set_text(GTK_LABEL(ancienn),a2);
-gtk_label_set_text(GTK_LABEL(ancienp),a3);
-gtk_label_set_text(GTK_LABEL(ancienc),a4);
-gtk_label_set_text(GTK_LABEL(anciens),a5);
-gtk_label_set_text(GTK_LABEL(ancienj),a6);
-gtk_label_set_text(GTK_LABEL(ancienm),a7);
-gtk_label_set_text(GTK_LABEL(anciena),a8);
-gtk_label_set_text(GTK_LABEL(ancienmail),a9);
-gtk_label_set_text(GTK_LABEL(ancienmdp),a10);
-
-}
-
-
-}
-}
-
-void
-on_buttonn_modifier_clicked            (GtkWidget        *button,
-                                        gpointer         user_data)
-{ GtkWidget *entryid2;
-GtkWidget *entrynom, *entryprenom,*entrycin,*entrysexe,*entryjour,*entrymois,*entryannee,*entrymail,*entrymdp;
-FILE *f,*fich;
-char a[30],b[30],c[30],d[30],h[30],i[30],k[30]; int e,f1,g;
-char a1[30],a2[30],a3[30],a4[30],a5[30],a6[30],a7[30],a8[30],a9[30],a10[30];
-
-
-entryid2=lookup_widget(button,"identifiant2");
-strcpy(k,gtk_entry_get_text(GTK_ENTRY(entryid2)));
-
-entrynom=lookup_widget(button,"nnom");
-strcpy(a,gtk_entry_get_text(GTK_ENTRY(entrynom)));
-
-entryprenom=lookup_widget(button,"nprenom");
-strcpy(b,gtk_entry_get_text(GTK_ENTRY(entryprenom)));
-
-entrycin=lookup_widget(button,"ncin");
-strcpy(c,gtk_entry_get_text(GTK_ENTRY(entrycin)));
-
-entrysexe=lookup_widget(button, "combobox2");
-strcpy(d,gtk_combo_box_get_active_text(GTK_COMBO_BOX(entrysexe)));
-
-entryjour=lookup_widget(button,"njour");
-e=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(entryjour));
-
-entrymois=lookup_widget(button,"nmois");
-f1=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(entrymois));
-
-entryannee=lookup_widget(button,"nannee");
-g=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(entryannee));
-
-entrymail=lookup_widget(button,"nmail");
-strcpy(h,gtk_entry_get_text(GTK_ENTRY(entrymail)));
-
-
-entrymdp=lookup_widget(button,"npassword");
-strcpy(i,gtk_entry_get_text(GTK_ENTRY(entrymdp)));
-
-
-f=fopen("/home/zac/Projects/crudi/src/clieent.txt","r");
-fich=fopen("/home/zac/Projects/crudi/src/tempclieent.txt","w");
-while(fscanf(f,"%s %s %s %s %s %s %s %s %s %s ",a1,a2,a3,a4,a5,a6,a7,a8,a9,a10)!=EOF)
-{
-if(strcmp(k,a1)==0)
-{
-fprintf(fich,"%s %s %s %s %s %d %d %d %s %s\n",a1,a,b,c,d,e,f1,g,h,i); 
-
-}
-else fprintf(fich,"%s %s %s %s %s %s %s %s %s %s\n",a1,a2,a3,a4,a5,a6,a7,a8,a9,a10);
-
-
-}
-
-fclose(f);
-fclose(fich);
-remove("/home/zac/Projects/crudi/src/clieent.txt");
-rename("/home/zac/Projects/crudi/src/tempclieent.txt","/home/zac/Projects/crudi/src/clieent.txt");
-FILE* fichier = NULL;
-
-fichier = fopen("home/zac/Projects/crudi/src/tempclieent.txt", "w");
-if (fichier != NULL)
-{
-fputs("", fichier);
-fclose(fichier);
-}
-
-
-
-
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"reservation");
+gtk_widget_hide(window);
+window1=create_reservation_vol();
+gtk_widget_show_all(window1);
 }
 
 
 void
-on_supprimer_clicked                   (GtkWidget        *objet,
+on_buttongestreshot_clicked            (GtkWidget       *button,
                                         gpointer         user_data)
 {
-char a[30];
-char a1[30],a2[30],a3[30],a4[30],a5[30],a6[30],a7[30],a8[30],a9[30];
-GtkWidget *entrysupclient;
-GtkWidget *output2;
-FILE *f;
-output2=lookup_widget(objet,"labelerrorclient");
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"reservation");
+gtk_widget_hide(window);
+window1=create_reservation_hotel();
+gtk_widget_show_all(window1);
+}
 
-entrysupclient=lookup_widget(objet,"suppclient");
-strcpy(a,gtk_entry_get_text(GTK_ENTRY(entrysupclient)));
 
-int n=0;
+void
+on_buttonretourreservation_clicked     (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"reservation_vol_reserver");
+gtk_widget_hide(window);
+window1=create_reservation_vol();
+gtk_widget_show_all(window1);
+}
 
-f=fopen("/home/zac/Projects/crudi/src/clieent.txt","r");
-while(fscanf(f,"%s %s %s %s %s %s %s %s %s ",a1,a2,a3,a4,a5,a6,a7,a8,a9)!=EOF){
 
-	if(strcmp(a1,a)==0) n++;	
+void
+on_buttonafficherlistvol_clicked       (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+GtkWidget *treeview22;
+window=lookup_widget(button,"reservation");
+gtk_widget_hide(window);
+window1=create_reservation_vol_reserver();
+gtk_widget_show_all(window1);
+treeview22=lookup_widget(window1,"treeviewvoloffres");
+	afficher_vol(treeview22);
+}
+
+
+void
+on_buttonmesvolreservee_clicked        (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+GtkWidget *treeview4;
+window=lookup_widget(button,"reservation");
+gtk_widget_hide(window);
+window1=create_mes_reservation_vol();
+gtk_widget_show_all(window1);
+treeview4=lookup_widget(window1,"treeview4");
+	afficher_volreservee(treeview4);
+}
+
+
+void
+on_buttonretourresevol_clicked         (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"reservation_vol");
+gtk_widget_hide(window);
+window1=create_reservation();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_buttonmeshotreserver_clicked        (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+GtkWidget *treeviewhotres1;
+window=lookup_widget(button,"reservation_hotel");
+gtk_widget_hide(window);
+window1=create_mes_reservation_hotel();
+gtk_widget_show_all(window1);
+treeviewhotres1=lookup_widget(window1,"treeviewhotres1");
+	afficher_hotelreservee(treeviewhotres1);
+}
+
+
+void
+on_buttonafficherlisthot_clicked       (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+GtkWidget *treeview22;
+window=lookup_widget(button,"reservation");
+gtk_widget_hide(window);
+window1=create_reservation_hotel_reserver();
+gtk_widget_show_all(window1);
+treeview22=lookup_widget(window1,"treeviewhotoffres");
+	afficher_hotel(treeview22);
+}
+
+
+void
+on_buttonvalidervolres_clicked         (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+	GtkWidget *input1;
+	GtkWidget *output;
+
+	char nomhotel[50];
+
+	input1=lookup_widget(button,"entrynomhotel");
+	strcpy(nomhotel,gtk_entry_get_text(GTK_ENTRY(input1)));
+
+	GtkWidget *spinbuttonjourhot;
+	GtkWidget *spinbuttonmoishot;
+	GtkWidget *spinbuttonanneehot;
+	GtkWidget *spinbuttonnbperso;
+	GtkWidget *spinbuttonnbch;
+
+
+
+	spinbuttonjourhot=lookup_widget(button, "spinbuttonjourhot");
+	spinbuttonmoishot=lookup_widget(button, "spinbuttonmoishot");
+	spinbuttonanneehot=lookup_widget(button, "spinbuttonanneehot");
+	spinbuttonnbperso=lookup_widget(button, "spinbuttonnbperso");
+	spinbuttonnbch=lookup_widget(button, "spinbuttonnbch");
+
+
+	int JJ=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonjourhot));
+	int MM=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonmoishot));
+	int AA=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonanneehot));
+	int nbp=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonnbperso));
+	int nbc=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonnbch));
+
+char a[20],b[20],f[50],g[50],h[50];
+char ws[50];
+int c,d,e;
+FILE *f0;
+FILE *f2;
+f2=fopen("/home/yosr/Projects/projectreservation/hotelreserver.txt","a+");
+f0=fopen("/home/yosr/Projects/projectreservation/hotel.txt","a+");
+int x=0;
+while (fscanf(f0,"%s %s %d %d %d %s %s %s \n",a, b, &c, &d, &e, f, g, h)!=EOF)
+{ 
+if (strcmp(nomhotel,b)==0)
+{
+	if(c==JJ){if(MM==d){if(e==AA){x=1;
+	break;}}}
 	
 }
+}
+char a1[20], b1[20], c1[20], d1[20], e1[20], f1[20], g1[20], h1[20],i1[20],j1[20],k1[20];
+int idres=0;
+while (fscanf(f2,"%s %s %s %s %s %s %s %s %s %s %s \n",a1, b1, c1, d1, e1, f1, g1, h1,i1,j1,k1)!=EOF)
+{ idres=idres+1;}
+if(x==1){
+idres=idres+1;
+fprintf(f2,"%d %s %s %d %d %d %s %s %s %d %d\n",idres,a, b, c, d, e, f, g, h,nbp,nbc);
+strcpy(ws,"reservation validé");
+output=lookup_widget(button,"labelerrorreshot");
+gtk_label_set_text(GTK_LABEL(output),ws);
+}
+fclose(f0);
+fclose(f2);
 
-
-fclose(f);
-if(n!=0) {gtk_label_set_text(GTK_LABEL(output2),"suppression réussite");
-sup_offre(a,f);}
-else gtk_label_set_text(GTK_LABEL(output2),"Id client inexistant");
+if (x==0){
+strcpy(ws,"reservation non validé");
+output=lookup_widget(button,"labelerrorreshot");
+gtk_label_set_text(GTK_LABEL(output),ws);}
 
 
 }
 
 
 void
-on_afficher_clicked                    (GtkWidget       *button,
+on_buttonreshotdel_clicked             (GtkWidget       *button,
                                         gpointer         user_data)
 {
-GtkWidget *treeview1;
-GtkWidget *notebook;
+char x[50];
+GtkWidget *input1;
+input1= lookup_widget(button,"entryidresdel");
+strcpy(x,gtk_entry_get_text(GTK_ENTRY(input1)));
+
+
+FILE *f1 ;
+FILE *ftempvol;
+
+ftempvol=fopen ("/home/yosr/Projects/projectreservation/ftempvol.txt","a+");
+f1=fopen("/home/yosr/Projects/projectreservation/hotelreserver.txt","a+");
+char pVille_depart[20], pVille_arrivee[20], pJour[20], pMois[20], pAnnee[20], pDuree_vol[20], pClasse[20], pNbre_voyageurs[20], pPrix_vol[20], pId_vol[20],kl[20],jl[20],hk[20];
+int y=0;
+
+
+                       while (fscanf(f1,"%s %s %s %s %s %s %s %s %s %s %s\n",pVille_depart, pVille_arrivee, pJour, pDuree_vol, pClasse, pNbre_voyageurs, pPrix_vol, pId_vol,kl,jl,hk)!=EOF)
+{ 
+if (strcmp(x,pVille_depart)!=0)
+{
+fprintf(ftempvol,"%s %s %s %s %s %s %s %s %s %s %s\n",pVille_depart, pVille_arrivee, pJour, pDuree_vol, pClasse, pNbre_voyageurs, pPrix_vol, pId_vol,kl,jl,hk);}
+if  (strcmp(x,pVille_depart)==0) {y=1;}
+
+} 
+fclose(ftempvol);
+fclose(f1);
+remove ("/home/yosr/Projects/projectreservation/hotelreserver.txt");
+rename ("/home/yosr/Projects/projectreservation/ftempvol.txt","/home/yosr/Projects/projectreservation/hotelreserver.txt");
+if(y==0){
+char ext[50];
+GtkWidget *output;
+strcpy(ext,"reservation n'existe pas");
+output=lookup_widget(button,"labelerrordelete");
+gtk_label_set_text(GTK_LABEL(output),ext);}
+if(y==1){
+char ext[50];
+GtkWidget *output;
+strcpy(ext,"suppression avec succée");
+output=lookup_widget(button,"labelerrordelete");
+gtk_label_set_text(GTK_LABEL(output),ext);
+
+
 GtkWidget *window1;
-window1=lookup_widget(button,"window1");
-notebook=lookup_widget(window1,"notebook1");
-treeview1=lookup_widget(window1,"treeview1");
-afficher1(treeview1);
+window1=lookup_widget(button,"mes_reservation_hotel");
+GtkWidget *treeviewhotres1;
+treeviewhotres1=lookup_widget(window1,"treeviewhotres1");
+	afficher_hotelreservee(treeviewhotres1);
+}
+
+
+
+
 }
 
 
 void
-on_affich1_clicked                     (GtkWidget       *button,
+on_buttonreservol_clicked              (GtkWidget      *button,
                                         gpointer         user_data)
 {
-GtkWidget *treeview1;
-GtkWidget *notebook;
+GtkWidget *input1;
+GtkWidget *output;
+
+	char idvol[50];
+
+	input1=lookup_widget(button,"entryidreservation");
+	strcpy(idvol,gtk_entry_get_text(GTK_ENTRY(input1)));
+
+
+
+
+char a[20],b[20],f[50],g[50],h[50],c[50],d[50],e[50];
+char ws[50];
+FILE *f0;
+FILE *f2;
+f2=fopen("/home/yosr/Projects/projectreservation/volreserver.txt","a+");
+f0=fopen("/home/yosr/Projects/projectreservation/uservol.txt","a+");
+int x=0;
+while (fscanf(f0,"%s %s %s %s %s %s %s %s \n",a, b, c, d, e, f, g, h)!=EOF)
+{ 
+if (strcmp(idvol,h)==0)
+{
+	x=1;
+	break;
+	
+}
+}
+
+if(x==1){
+fprintf(f2,"%s %s %s %s %s %s %s %s \n",a, b, c, d, e, f, g, h);
+strcpy(ws,"reservation validé");
+output=lookup_widget(button,"label30000");
+gtk_label_set_text(GTK_LABEL(output),ws);
+}
+fclose(f0);
+fclose(f2);
+
+if (x==0){
+strcpy(ws,"reservation non validé");
+output=lookup_widget(button,"label30000");
+gtk_label_set_text(GTK_LABEL(output),ws);}
+}
+
+
+void
+on_buttonsupprimervolres_clicked       (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+char x[50];
+GtkWidget *input1;
+input1= lookup_widget(button,"entry50000");
+strcpy(x,gtk_entry_get_text(GTK_ENTRY(input1)));
+
+
+FILE *f1 ;
+FILE *ftempvol;
+
+ftempvol=fopen ("/home/yosr/Projects/projectreservation/ftempvol.txt","a+");
+f1=fopen("/home/yosr/Projects/projectreservation/volreserver.txt","a+");
+char pVille_depart[20], pVille_arrivee[20], pJour[20], pMois[20], pAnnee[20], pDuree_vol[20], pClasse[20], pNbre_voyageurs[20], pPrix_vol[20], pId_vol[20],kl[20],jl[20],hk[20];
+int y=0;
+
+
+                       while (fscanf(f1,"%s %s %s %s %s %s %s %s \n",pVille_depart, pVille_arrivee, pJour, pDuree_vol, pClasse, pNbre_voyageurs, pPrix_vol, pId_vol)!=EOF)
+{ 
+if (strcmp(x,pId_vol)!=0)
+{
+fprintf(ftempvol,"%s %s %s %s %s %s %s %s\n",pVille_depart, pVille_arrivee, pJour, pDuree_vol, pClasse, pNbre_voyageurs, pPrix_vol, pId_vol);}
+if  (strcmp(x,pId_vol)==0) {y=1;}
+
+} 
+fclose(ftempvol);
+fclose(f1);
+remove ("/home/yosr/Projects/projectreservation/volreserver.txt");
+rename ("/home/yosr/Projects/projectreservation/ftempvol.txt","/home/yosr/Projects/projectreservation/volreserver.txt");
+if(y==0){
+char ext[50];
+GtkWidget *output;
+strcpy(ext,"reservation n'existe pas");
+output=lookup_widget(button,"label3100");
+gtk_label_set_text(GTK_LABEL(output),ext);}
+if(y==1){
+char ext[50];
+GtkWidget *output;
+strcpy(ext,"suppression avec succée");
+output=lookup_widget(button,"label3100");
+gtk_label_set_text(GTK_LABEL(output),ext);
+}
+}
+
+void
+on_buttonretour8_clicked               (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
 GtkWidget *window1;
-window1=lookup_widget(button,"window1");
-notebook=lookup_widget(window1,"notebook1");
-treeview1=lookup_widget(window1,"treeview1");
-afficher1(treeview1);
+window=lookup_widget(button,"reservation_hotel");
+gtk_widget_hide(window);
+window1=create_reservation();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button16retour_clicked              (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"me_reservation_vol");
+gtk_widget_hide(window);
+window1=create_reservation_vol();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button11retour_clicked              (GtkWidget      *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"reservation_hotel_reserver");
+gtk_widget_hide(window);
+window1=create_reservation_hotel();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button13retour_clicked              (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"me_reservation_hotel");
+gtk_widget_hide(window);
+window1=create_reservation_hotel();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button14retour_clicked              (GtkWidget      *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"me_reservation_hotel");
+gtk_widget_hide(window);
+window1=create_reservation_hotel();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button1800_clicked                  (GtkWidget      *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_button1801_clicked                  (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_buttonmodifier_clicked              (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_buttonmodifiervolres_clicked        (GtkWidget      *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_button1802_clicked                  (GtkWidget      *button,
+                                        gpointer         user_data)
+{
+GtkWidget *input1;
+
+	char ch[50];
+	input1=lookup_widget(button,"entry50001");
+	strcpy(ch,gtk_entry_get_text(GTK_ENTRY(input1)));
+
+FILE *f2;
+f2=fopen("/home/yosr/Projects/projectreservation/tempid.txt","a+");
+fprintf(f2,"%s\n",ch);
+
+fclose(f2);
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"me_reservation_hotel");
+gtk_widget_hide(window);
+window1=create_modification_hotel();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button1modifierreshot_clicked       (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *input1;
+	GtkWidget *output;
+
+	char nomhotel[50];
+
+	input1=lookup_widget(button,"entry50003");
+	strcpy(nomhotel,gtk_entry_get_text(GTK_ENTRY(input1)));
+
+	GtkWidget *spinbuttonjourhot;
+	GtkWidget *spinbuttonmoishot;
+	GtkWidget *spinbuttonanneehot;
+	GtkWidget *spinbuttonnbperso;
+	GtkWidget *spinbuttonnbch;
+
+
+
+	spinbuttonjourhot=lookup_widget(button, "spinbutton5");
+	spinbuttonmoishot=lookup_widget(button, "spinbutton6");
+	spinbuttonanneehot=lookup_widget(button, "spinbutton7");
+	spinbuttonnbperso=lookup_widget(button, "spinbutton8");
+	spinbuttonnbch=lookup_widget(button, "spinbutton9");
+
+
+	int JJ=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonjourhot));
+	int MM=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonmoishot));
+	int AA=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonanneehot));
+	int nbp=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonnbperso));
+	int nbc=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbuttonnbch));
+
+FILE *f0;
+FILE *f2;
+FILE *f3;
+f3=fopen("/home/yosr/Projects/projectreservation/temphotelres.txt","a+");
+f0=fopen("/home/yosr/Projects/projectreservation/tempid.txt","a+");
+f2=fopen("/home/yosr/Projects/projectreservation/hotelreserver.txt","a+");
+char ch[50];
+fscanf(f0,"%s \n",ch);
+int x=0;
+char a1[20],b1[20],c1[20],d1[20],e1[20],f1[20],g1[20],h1[20],i1[20],j1[20],k1[20];
+while (fscanf(f2,"%s %s %s %s %s %s %s %s %s %s %s \n",a1,b1,c1,d1,e1,f1,g1,h1,i1,j1,k1)!=EOF)
+{ 
+if (strcmp(ch,a1)!=0)
+{	x=x+1;
+	fprintf(f3,"%s %s %s %s %s %s %s %s %s %s %s\n",a1,b1,c1,d1,e1,f1,g1,h1,i1,j1,k1);
+	
+}
+if (strcmp(ch,a1)==0)
+{
+fprintf(f3,"%s %s %s %d %d %d %s %s %s %d %d\n",a1,b1,nomhotel,JJ,MM,AA,g1,h1,i1,nbp,nbc);
+	
+}
+}
+fclose(f0);
+fclose(f3);
+fclose(f2);
+remove ("/home/yosr/Projects/projectreservation/tempid.txt");
+remove ("/home/yosr/Projects/projectreservation/temphotelres.txt");
+rename ("/home/yosr/Projects/projectreservation/hotelreserver.txt","/home/yosr/Projects projectreservation/hotelreserver.txt");
+
 }
 

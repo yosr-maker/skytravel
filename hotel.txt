@@ -1,0 +1,5 @@
+bizerte bizerte 1 1 1990 3etoilles 2000 20dt
+bizerte andalusia 1 1 1990 5etoilles 2001 40dt
+bizerte chaimamotel 1 1 1990 5etoilles 2001 40dt
+ariana hotel_cosy 6 1 2020 5etoilles 2002 500dt
+bizerte jalta 1 1 1990 4etoilles 123456789 40dt
