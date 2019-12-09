@@ -1,5 +1,6 @@
 #include <gtk/gtk.h>
 
+
 typedef struct 
 {
 	char Ville_depart[40];
@@ -20,7 +21,5 @@ typedef struct
 void ajouter_vol(Vol p);
 void afficher_vol(GtkWidget *liste);
 void modifier(Vol p, Vol m);
-void afficher_hotelreservee(GtkWidget *liste);
 void afficher_hotel(GtkWidget *liste);
-void afficher_volreservee(GtkWidget *liste);
 

@@ -86,7 +86,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = projet-finale$(EXEEXT)
+bin_PROGRAMS = projectvol$(EXEEXT)
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
@@ -99,12 +99,11 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_projet_finale_OBJECTS = main.$(OBJEXT) support.$(OBJEXT) \
-	interface.$(OBJEXT) callbacks.$(OBJEXT) suppm.$(OBJEXT) \
-	facturation.$(OBJEXT)
-projet_finale_OBJECTS = $(am_projet_finale_OBJECTS)
+am_projectvol_OBJECTS = main.$(OBJEXT) support.$(OBJEXT) \
+	interface.$(OBJEXT) callbacks.$(OBJEXT) vol.$(OBJEXT)
+projectvol_OBJECTS = $(am_projectvol_OBJECTS)
 am__DEPENDENCIES_1 =
-projet_finale_DEPENDENCIES = $(am__DEPENDENCIES_1)
+projectvol_DEPENDENCIES = $(am__DEPENDENCIES_1)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -133,8 +132,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(projet_finale_SOURCES)
-DIST_SOURCES = $(projet_finale_SOURCES)
+SOURCES = $(projectvol_SOURCES)
+DIST_SOURCES = $(projectvol_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -278,15 +277,14 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	@PACKAGE_CFLAGS@
 
-projet_finale_SOURCES = \
+projectvol_SOURCES = \
 	main.c \
 	support.c support.h \
 	interface.c interface.h \
 	callbacks.c callbacks.h \
-	suppm.c suppm.h \
-	facturation.c facturation.h
+	vol.c vol.h 
 
-projet_finale_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
+projectvol_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 all: all-am
 
 .SUFFIXES:
@@ -363,9 +361,9 @@ uninstall-binPROGRAMS:
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
 
-projet-finale$(EXEEXT): $(projet_finale_OBJECTS) $(projet_finale_DEPENDENCIES) $(EXTRA_projet_finale_DEPENDENCIES) 
-	@rm -f projet-finale$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(projet_finale_OBJECTS) $(projet_finale_LDADD) $(LIBS)
+projectvol$(EXEEXT): $(projectvol_OBJECTS) $(projectvol_DEPENDENCIES) $(EXTRA_projectvol_DEPENDENCIES) 
+	@rm -f projectvol$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(projectvol_OBJECTS) $(projectvol_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -374,11 +372,10 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/callbacks.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/facturation.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/interface.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/suppm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/support.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vol.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

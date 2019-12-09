@@ -3,6 +3,12 @@
  */
 
 GtkWidget* create_window1 (void);
-GtkWidget* create_window2 (void);
-GtkWidget* create_dialog1 (void);
+GtkWidget* create_windowaffichage (void);
 GtkWidget* create_window3 (void);
+GtkWidget* create_window (void);
+GtkWidget* create_window4 (void);
+GtkWidget* create_window5 (void);
+GtkWidget* create_window6 (void);
+GtkWidget* create_window7 (void);
+GtkWidget* create_window9 (void);
+GtkWidget* create_window10 (void);
