@@ -8,15 +8,14 @@
 #endif
 
 #include <gtk/gtk.h>
+
 #include "interface.h"
 #include "support.h"
 
 int
 main (int argc, char *argv[])
 {
-  GtkWidget *reservation;
-  GtkWidget *reservation_vol;
-  GtkWidget *reservation_hotel;
+  GtkWidget *window1;
 
 #ifdef ENABLE_NLS
   bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -34,8 +33,8 @@ main (int argc, char *argv[])
    * (except popup menus), just so that you see something after building
    * the project. Delete any components that you don't want shown initially.
    */
-  reservation = create_reservation ();
-  gtk_widget_show (reservation);
+  window1 = create_window1 ();
+  gtk_widget_show (window1);
 
   gtk_main ();
   return 0;

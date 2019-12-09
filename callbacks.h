@@ -2,98 +2,50 @@
 
 
 void
-on_buttongestresvol_clicked            (GtkWidget       *button,
+on_afficher_clicked                    (GtkButton       *objet,
                                         gpointer         user_data);
 
 void
-on_buttongestreshot_clicked            (GtkWidget       *button,
+on_retour_clicked                      (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_buttonretourreservation_clicked     (GtkWidget       *button,
+on_button1_clicked                     (GtkButton       *objet,
                                         gpointer         user_data);
 
 void
-on_buttonafficherlistvol_clicked       (GtkWidget       *button,
+on_button_auct_clicked                 (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_buttonmesvolreservee_clicked        (GtkWidget       *button,
+on_okbutton1_clicked                   (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_buttonretourresevol_clicked         (GtkWidget       *button,
-                                        gpointer         user_data);
-
-void
-on_buttonmeshotreserver_clicked        (GtkWidget       *button,
-                                        gpointer         user_data);
-
-void
-on_buttonafficherlisthot_clicked       (GtkWidget       *button,
-                                        gpointer         user_data);
-
-void
-on_buttonvalidervolres_clicked         (GtkWidget       *button,
-                                        gpointer         user_data);
-
-void
-on_buttonreshotdel_clicked             (GtkWidget      *button,
-                                        gpointer         user_data);
-void
-on_button16retour_clicked              (GtkWidget      *button,
-                                        gpointer         user_data);
-
-void
-on_button1800_clicked                  (GtkWidget      *button,
+on_button2_clicked                     (GtkButton       *button,
                                         gpointer         user_data);
 
 
 void
-on_button14retour_clicked              (GtkWidget       *button,
-                                        gpointer         user_data);
-
-
-void
-on_button13retour_clicked              (GtkWidget     *button,
+on_button2_clicked                     (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_button11retour_clicked              (GtkWidget      *button,
+on_button3_clicked                     (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_buttonretour8_clicked               (GtkWidget       *button,
-                                        gpointer         user_data);
-
-
-void
-on_buttongestresvol_clicked            (GtkWidget       *button,
+on_button4_clicked                     (GtkButton       *button,
                                         gpointer         user_data);
 
 void
-on_buttongestreshot_clicked            (GtkWidget       *button,
+on_button4_clicked                     (GtkButton       *button,
                                         gpointer         user_data);
 
-
 void
-on_buttonreshotdel_clicked             (GtkWidget       *button,
+on_vmodif_clicked                      (GtkButton       *button,
                                         gpointer         user_data);
 
-
 void
-on_buttonsupprimervolres_clicked       (GtkWidget       *button,
-                                        gpointer         user_data);
-
-
-
-
-void
-on_buttonreservol_clicked              (GtkWidget       *button,
-                                        gpointer         user_data);
-
-
-
-void
-on_button1801_clicked                  (GtkWidget      *button,
+on_valimodif_clicked                   (GtkButton       *button,
                                         gpointer         user_data);
