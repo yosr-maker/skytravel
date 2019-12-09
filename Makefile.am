@@ -5,14 +5,14 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	@PACKAGE_CFLAGS@
 
-bin_PROGRAMS = projectvol
+bin_PROGRAMS = crudi
 
-projectvol_SOURCES = \
+crudi_SOURCES = \
 	main.c \
 	support.c support.h \
 	interface.c interface.h \
 	callbacks.c callbacks.h \
-	vol.c vol.h 
+	client.c client.h
 
-projectvol_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
+crudi_LDADD = @PACKAGE_LIBS@ $(INTLLIBS)
 
