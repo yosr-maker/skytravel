@@ -1,453 +1,633 @@
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
+#include <string.h>
 #endif
 #include <stdio.h>
+#include <stdlib.h>
 #include <gtk/gtk.h>
-#include <string.h>
 
 #include "callbacks.h"
 #include "interface.h"
 #include "support.h"
-#include "fonct.h"
+#include "vol.h"
+
+void
+on_ajout_clicked (GtkWidget *objet, gpointer user_data)
+{
+            GtkWidget *window;
+            GtkWidget *window1;
+
+
+             window=lookup_widget(objet, "window");
+             window1 = create_window1 ();
+             gtk_widget_show(window1);
+             gtk_widget_hide(window);
+
+}
 
 
 void
-on_buttonajouter_clicked               (GtkWidget       *button,
+on_ajouter_clicked                     (GtkWidget       *objet,
                                         gpointer         user_data)
 {
-GtkWidget *window;
-GtkWidget *aceuil;
-window=lookup_widget(button,"aceuil");
-gtk_widget_hide(window);
-aceuil=create_ajout();
-gtk_widget_show_all(aceuil);
+	Vol p;
+	GtkWidget *input1,*input2,*input3,*input4,*input5,*input6,*input7,*input8;
+
+	GtkWidget *window1;
+
+	window1=lookup_widget(objet,"window1");
+
+	input4=lookup_widget(objet,"Duree_vol");
+	input6=lookup_widget(objet,"Nbre_voyageurs");
+	input7=lookup_widget(objet,"Prix_vol");
+	input8=lookup_widget(objet,"Id_vol");
+
+	GtkWidget *spinbutton1;
+	GtkWidget *spinbutton2;
+	GtkWidget *spinbutton3;
+
+	GtkWidget *combobox1;
+	GtkWidget *combobox2;
+	GtkWidget *combobox3;
+
+	spinbutton1=lookup_widget(objet, "Jour");
+	spinbutton2=lookup_widget(objet, "Mois");
+	spinbutton3=lookup_widget(objet, "Annee");
+
+	combobox1=lookup_widget(objet, "combobox1");
+	combobox2=lookup_widget(objet, "combobox2");
+	combobox3=lookup_widget(objet, "combobox3");
+
+	int JJ=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbutton1));
+	int MM=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbutton2));
+	int AA=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON(spinbutton3));
+
+	char ville_depart[20];
+	strcpy(p.Ville_depart,gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox1)));
+	char ville_arrivee[20];
+	strcpy(p.Ville_arrivee,gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox2)));
+	char classe_vol[20];
+	strcpy(p.Classe,gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox3)));
+
+	
+p.Jour=JJ;
+p.Mois=MM;
+p.Annee=AA;
+
+	strcpy(p.Duree_vol,gtk_entry_get_text(GTK_ENTRY(input4)));
+	strcpy(p.Nbre_voyageurs,gtk_entry_get_text(GTK_ENTRY(input6)));
+	strcpy(p.Prix_vol,gtk_entry_get_text(GTK_ENTRY(input7)));
+	strcpy(p.Id_vol,gtk_entry_get_text(GTK_ENTRY(input8)));
+	ajouter_vol(p);
 }
 
-
 void
-on_buttonmodifier_clicked               (GtkWidget       *button,
+on_afficher_clicked                     (GtkWidget       *objet,
                                         gpointer         user_data)
 {
-GtkWidget *window;
-GtkWidget *aceuil;
-window=lookup_widget(button,"aceuil");
-gtk_widget_hide(window);
-aceuil=create_modification();
-gtk_widget_show_all(aceuil);
-}
 
-
-void
-on_buttonsuprimer_clicked               (GtkWidget       *button,
-                                        gpointer         user_data)
-{
-GtkWidget *window;
-GtkWidget *aceuil;
-window=lookup_widget(button,"aceuil");
-gtk_widget_hide(window);
-aceuil=create_supression();
-gtk_widget_show_all(aceuil);
-}
-
-
-void
-on_buttonafficher_clicked               (GtkWidget       *button,
-                                         gpointer         user_data)
-{
-GtkWidget *window;
-GtkWidget *aceuil;
-GtkWidget *treeview1;
-window=lookup_widget(button,"aceuil");
-gtk_widget_hide(window);
-aceuil=create_affichage();
-gtk_widget_show_all(aceuil);
-treeview1=lookup_widget(aceuil,"treeview1");
-affich(treeview1);
-}
-
-
-
-void
-on_buttonback1_clicked                 (GtkWidget      *button,
-                                        gpointer         user_data)
-{GtkWidget *window;
-GtkWidget *ajout;
-window=lookup_widget(button,"ajout");
-gtk_widget_hide(window);
-ajout=create_aceuil();
-gtk_widget_show_all(ajout);
-
-}
-
-
-void
-on_buttonback2_clicked                 (GtkWidget       *button,
-                                        gpointer         user_data)
-{GtkWidget *window;
-GtkWidget *modification;
-window=lookup_widget(button,"modification");
-gtk_widget_hide(window);
-modification=create_aceuil();
-gtk_widget_show_all(modification);
-
-}
-
-
-void
-on_buttonback3_clicked                 (GtkWidget        *button,
-                                        gpointer         user_data)
-{GtkWidget *window;
-GtkWidget *supression;
-window=lookup_widget(button,"supression");
-gtk_widget_hide(window);
-supression=create_aceuil();
-gtk_widget_show_all(supression);
-
-}
-
-
-void
-on_buttonback4_clicked                 (GtkWidget       *button,
-                                        gpointer         user_data)
-{GtkWidget *window;
-GtkWidget *affichage;
-window=lookup_widget(button,"affichage");
-gtk_widget_hide(window);
-affichage=create_aceuil();
-gtk_widget_show_all(affichage);
-
-}
-
-//ajouter ajouter ajouter ajouter ajouter ajouter ajouter ajouter //
-
-void
-on_buttoncree_clicked                  (GtkWidget       *button,
-                                        gpointer         user_data)
-{
-GtkWidget *combobox1;
-GtkWidget *entryCin;
-GtkWidget *entrynom;
-GtkWidget *entryprenom;
-GtkWidget *entrymail;
-GtkWidget *entrypass;
-GtkWidget *output;
-GtkWidget *spinbutton1;
-
-FILE *ag;
-
-char a[20], b[20], c[20], d[20], e[20],civ[20];
-
-spinbutton1=lookup_widget(button, "spinbutton1");
-int age=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton1));
-
-entryCin=lookup_widget(button,"entryCin");
-strcpy(a,gtk_entry_get_text(GTK_ENTRY(entryCin)));
-
-combobox1=lookup_widget(button, "combobox1");
-strcpy(civ,gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox1)));
-
-entrynom=lookup_widget(button,"entrynom");
-strcpy(b,gtk_entry_get_text(GTK_ENTRY(entrynom)));
-
-entryprenom=lookup_widget(button,"entryprenom");
-strcpy(c,gtk_entry_get_text(GTK_ENTRY(entryprenom)));
-
-entrymail=lookup_widget(button,"entrymail");
-strcpy(d,gtk_entry_get_text(GTK_ENTRY(entrymail)));
-
-entrypass=lookup_widget(button,"entrypass");
-strcpy(e,gtk_entry_get_text(GTK_ENTRY(entrypass)));
-
-ag=fopen("/home/baha/Projets/projet1/src/agnt.txt","a+");
-
-char a1[20],age1[12], b1[20], c1[20], d1[20], e1[20],civ1[20], ext[60];
-int x=0;
-
-while (fscanf(ag,"%s %s %s %s %s %s %s\n",civ1,age1,a1,b1,c1,d1,e1)!=EOF)
-{
-   if ((strcmp(a, a1)== 0))
-    { 
-	strcpy(ext,"ce compte existe");
-	output=lookup_widget(button,"labelexist");
-	gtk_label_set_text(GTK_LABEL(output),ext);
-        x=1;	
-        break;
-    }
-}
-if(x==0) {fprintf(ag,"%s %d %s %s %s %s %s\n",civ,age,a,b,c,d,e);
-strcpy(ext,"ajoute avec succée");
-	output=lookup_widget(button,"labelexist");
-	gtk_label_set_text(GTK_LABEL(output),ext);
-char a2[20]="", b2[20]="", c2[20]="", d2[20]="", e2[20]="";
-gtk_entry_set_text(GTK_ENTRY(entryCin),a2);
-gtk_entry_set_text(GTK_ENTRY(entrynom),b2);
-gtk_entry_set_text(GTK_ENTRY(entryprenom),c2);
-gtk_entry_set_text(GTK_ENTRY(entrymail),d2);
-gtk_entry_set_text(GTK_ENTRY(entrypass),e2);
-
-
-}
-fclose(ag);
-}
-
-//suprimer suprimer suprimer suprimer suprimer suprimer suprimer suprimer//
-
-void
-on_buttonsupp_clicked                   (GtkWidget       *button,
-                                        gpointer         user_data)
-
-{
-GtkWidget *entrycinsupp;
-GtkWidget *output;
-char a[20];
-char a2[20]="";
-
-entrycinsupp=lookup_widget(button,"entrycinsupp");
-strcpy(a,gtk_entry_get_text(GTK_ENTRY(entrycinsupp)));
-
-FILE *ag;
-FILE *sup;
-char b[20], c[20], d[20], e[20],civ[20],age[12];
-ag=fopen("/home/baha/Projets/projet1/src/agnt.txt","a+");
-
-char a1[20],age1[12],b1[20], c1[20], d1[20], e1[20],civ1[20], ext[60];
-int x=0;
-sup=fopen("/home/baha/Projets/projet1/src/sup.txt","w+");
-while (fscanf(ag,"%s %s %s %s %s %s %s\n",civ1,age1,a1,b1,c1,d1,e1)!=EOF)
-{
-   if ((strcmp(a, a1)!= 0))
-    {  
-        
-
-        fprintf(sup,"%s %s %s %s %s %s %s\n",civ1,age1,a1,b1,c1,d1,e1);
-        
-	strcpy(ext,"ce compte n'existe pas");
-	output=lookup_widget(button,"labelexist1");
-	gtk_label_set_text(GTK_LABEL(output),ext);
-        gtk_entry_set_text(GTK_ENTRY(entrycinsupp),a2);
-        x=1;	
-        
-    }
-}
-if(x==0) {fprintf(ag,"%s %s %s %s %s %s %s\n",civ,age,a,b,c,d,e);
-strcpy(ext,"supprimé avec succée");
-	output=lookup_widget(button,"labelexist1");
-	gtk_label_set_text(GTK_LABEL(output),ext);
-        gtk_entry_set_text(GTK_ENTRY(entrycinsupp),a2);
-}
-fclose(ag);
-fclose(sup);
-remove("/home/baha/Projets/projet1/src/agnt.txt");
-rename("/home/baha/Projets/projet1/src/sup.txt","/home/baha/Projets/projet1/src/agnt.txt");
-}
-
-
-//modifier modifier modifier modifier modifier modifier modifier modifier//
-
-void
-on_buttonediter_clicked                (GtkWidget      *button,
-                                        gpointer         user_data)
-{
-GtkWidget *entrycinagent;
-GtkWidget *output;
-
-
-
-char a[20],v2[20],v[20];
-entrycinagent=lookup_widget(button,"entrycinagent");
-strcpy(a,gtk_entry_get_text(GTK_ENTRY(entrycinagent)));
-
-
-FILE *ag;
-FILE *temp;
-FILE *emp;
-emp=fopen("/home/baha/Projets/projet1/src/emp.txt","a+");
-
-char b[20], c[20], d[20], e[20],civ[20],age[12];
-ag=fopen("/home/baha/Projets/projet1/src/agnt.txt","a+");
-temp=fopen("/home/baha/Projets/projet1/src/temp.txt","w+");
-char a1[20],age1[12],b1[20], c1[20], d1[20], e1[20],civ1[20], ext[80];
-int x=0;
-while (fscanf(ag,"%s %s %s %s %s %s %s\n",civ1,age1,a1,b1,c1,d1,e1)!=EOF)
-{
-   if ((strcmp(a, a1)!= 0))
-    {  
-        
-        strcpy(ext,"ce compte n'existe pas ou pass admin non correct");
-	output=lookup_widget(button,"labelexiste2");
-	gtk_label_set_text(GTK_LABEL(output),ext);
-        x=1;	
-        
-    }
-   else 
-    {
 	GtkWidget *window;
-	GtkWidget *modification;
-	window=lookup_widget(button,"modification");
+	GtkWidget *windowaffichage;
+	GtkWidget *treeview1;
+
+	window=lookup_widget(objet, "window");
+
+	gtk_widget_destroy(window);
+	windowaffichage=lookup_widget(objet,"windowaffichage");
+	windowaffichage=create_windowaffichage();
+
+	gtk_widget_show(windowaffichage);
 	gtk_widget_hide(window);
-	modification=create_modification2();
-	gtk_widget_show_all(modification);
-        fprintf(temp,"%s %s %s %s %s %s %s\n",civ1,age1,a1,b1,c1,d1,e1);
-        fprintf(emp,"%s \n",a1);
-     }
+
+	treeview1=lookup_widget(windowaffichage,"treeview1");
+	afficher_vol(treeview1);
 }
 
-
-fclose(ag);
-fclose(temp);
-fclose(emp);
-}
-
-
-void
-on_buttonedit_clicked                  (GtkWidget       *button,
-                                        gpointer         user_data)
+void on_retour_clicked (GtkWidget *objet, gpointer user_data)
 {
- GtkWidget *combobox2;
- GtkWidget *entry;
- GtkWidget *entrynom1;
- GtkWidget *entrypass2;
- GtkWidget *entryprenom1;
- GtkWidget *entrymail1;
- GtkWidget *spinbutton2;
- GtkWidget *output;
- 
- 
-FILE *ag;
-FILE *mod;
-FILE *emp;
+	GtkWidget *windowaffichage;
+	GtkWidget *window;
 
-
-char z[50];
-emp=fopen("/home/baha/Projets/projet1/src/emp.txt","a+");
-fscanf(emp,"%s \n",z);
-
-ag=fopen("/home/baha/Projets/projet1/src/agnt.txt","a+");
-
-char a1[20],age1[12],b1[20], c1[20], d1[20], e1[20],civ1[20]; 
-char a[20],age[12],b[20], c[20], d[20], e[20],civ[20];
-int x=0;
-mod=fopen("/home/baha/Projets/projet1/src/mod.txt","a+");
-while (fscanf(ag,"%s %s %s %s %s %s %s\n",civ1,age1,a1,b1,c1,d1,e1)!=EOF)
-{
-   if ((strcmp(z, a1)!= 0))
-    {  
-        
-
-        fprintf(mod,"%s %s %s %s %s %s %s\n",civ1,age1,a1,b1,c1,d1,e1);	
-        
-    }
+	windowaffichage=lookup_widget(objet,"windowaffichage");
+	
+	gtk_widget_destroy(windowaffichage);
+	window=create_window();
+	gtk_widget_show(window);
 }
 
-fclose(ag);
-fclose(emp);
-fclose(mod);
-remove("/home/baha/Projets/projet1/src/emp.txt");
-remove("/home/baha/Projets/projet1/src/agnt.txt");
-rename("/home/baha/Projets/projet1/src/mod.txt","/home/baha/Projets/projet1/src/agnt.txt");
 
-
-
-ag=fopen("/home/baha/Projets/projet1/src/agnt.txt","a+");
-char a3[20], b3[20], e3[20], c3[20], d3[20],civ3[20], ext[60];
-int w=0;
-spinbutton2=lookup_widget(button, "spinbutton2");
-int age3=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton2));
-
-entry=lookup_widget(button,"entry");
-strcpy(a3,gtk_entry_get_text(GTK_ENTRY(entry)));
-
-combobox2=lookup_widget(button, "combobox2");
-strcpy(civ3,gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox2)));
-
-entrynom1=lookup_widget(button,"entrynom1");
-strcpy(b3,gtk_entry_get_text(GTK_ENTRY(entrynom1)));
-
-entryprenom1=lookup_widget(button,"entryprenom1");
-strcpy(c3,gtk_entry_get_text(GTK_ENTRY(entryprenom1)));
-
-entrymail1=lookup_widget(button,"entrymail1");
-strcpy(d3,gtk_entry_get_text(GTK_ENTRY(entrymail1)));
-
-entrypass2=lookup_widget(button,"entrypass2");
-strcpy(e3,gtk_entry_get_text(GTK_ENTRY(entrypass2)));
-
-
-while (fscanf(ag,"%s %s %s %s %s %s %s\n",civ1,age1,a1,b1,c1,d1,e1)!=EOF)
-{
-   if ((strcmp(a3, a1)== 0))
-    { 
-	strcpy(ext,"ce compte existe");
-	output=lookup_widget(button,"label19");
-	gtk_label_set_text(GTK_LABEL(output),ext);
-        w=1;	
-        break;
-    }
-}
-if(w==0) {fprintf(ag,"%s %d %s %s %s %s %s \n",civ3,age3,a3,b3,c3,d3,e3);
-strcpy(ext,"modifier avec succée");
-	output=lookup_widget(button,"label19");
-	gtk_label_set_text(GTK_LABEL(output),ext);}
-char a2[20]="", b2[20]="", c2[20]="", d2[20]="";
-gtk_entry_set_text(GTK_ENTRY(entry),a2);
-gtk_entry_set_text(GTK_ENTRY(entrynom1),b2);
-gtk_entry_set_text(GTK_ENTRY(entryprenom1),c2);
-gtk_entry_set_text(GTK_ENTRY(entrymail1),d2);
-gtk_entry_set_text(GTK_ENTRY(entrypass2),d2);
-
-
-
-fclose(ag);
-}
 
 
 
 
 
 void
-on_buttonact_clicked                   (GtkWidget      *button,
-                                        gpointer         user_data)
-{GtkWidget *input;
-FILE *temp;
-temp=fopen("/home/baha/Projets/projet1/src/temp.txt","a+");
-char a[20],b[20], c[20], d[20], e[20],civ[20],age[12];
-fscanf(temp,"%s %s %s %s %s %s %s \n",civ,age,a,b,c,d,e);
-input=lookup_widget(button,"entry");
-gtk_entry_set_text(GTK_ENTRY(input),a);
-input=lookup_widget(button,"entrynom1");
-gtk_entry_set_text(GTK_ENTRY(input),b);
-input=lookup_widget(button,"entryprenom1");
-gtk_entry_set_text(GTK_ENTRY(input),c);
-input=lookup_widget(button,"entrymail1");
-gtk_entry_set_text(GTK_ENTRY(input),d);
-input=lookup_widget(button,"entrypass2");
-gtk_entry_set_text(GTK_ENTRY(input),e);
-}
-
-
-void
-on_button1_clicked                     (GtkWidget       *button,
+on_modifier_clicked                    (GtkWidget      *objet,
                                         gpointer         user_data)
 {
 GtkWidget *window;
-GtkWidget *modification2;
-window=lookup_widget(button,"modification2");
+GtkWidget *window4;
+
+window=lookup_widget(objet,"window");
+window4=create_window4();
+gtk_widget_show(window4);
 gtk_widget_hide(window);
-modification2=create_modification();
-gtk_widget_show_all(modification2);
+
+}
+
+
+
+/*
+void
+on_confirmer_clicked                   (GtkWidget       *objet,
+                                        gpointer         user_data)
+{
+GtkWidget *Ville_depart, *Ville_arrivee, *Jour, *Mois, *Annee, *Duree_vol, *Classe, *Nbre_voyageurs, *Prix_vol, *Id_vol, *current, *window2, *window3, *liste;
+	char Ville_departy[40], Ville_arriveey[40], Duree_voly[40],Classey[40], Nbre_voyageursy[40], Prix_voly[40], Id_voly[40];
+	int Joury,Moisy,Anneey;
+	Ville_depart=lookup_widget(objet,"combobox4");
+	Ville_arrivee=lookup_widget(objet,"combobox5");
+	
+	Jour=lookup_widget(objet,"spinbutton1");
+	Mois=lookup_widget(objet,"spinbutton2");
+	Annee=lookup_widget(objet,"spinbutton3");
+	
+	Duree_vol=lookup_widget(objet,"entry1");
+	Classe=lookup_widget(objet,"combobox6");
+	Nbre_voyageurs=lookup_widget(objet,"entry2");
+	Prix_vol=lookup_widget(objet,"entry3");
+	Id_vol=lookup_widget(objet,"entry4");
+
+	strcpy(Ville_departy,gtk_combo_box_get_active_text(GTK_COMBO_BOX(GTK_ENTRY(Ville_depart))));
+	strcpy(Ville_arriveey,gtk_combo_box_get_active_texdt(GTK_COMBO_BOX(GTK_ENTRY(Ville_arrivee))));
+	Joury = gtk_spin_button_get_value_as_int(Jour);
+	Moisy = gtk_spin_button_get_value_as_int(Mois);
+	Anneey = gtk_spin_button_get_value_as_int(Annee);
+	strcpy(Duree_voly,gtk_entry_get_text(GTK_ENTRY(Duree_vol)));
+	strcpy(Classey,gtk_combo_box_get_active_text(GTK_COMBO_BOX(Classe)));
+	strcpy(Nbre_voyageursy,gtk_entry_get_text(GTK_ENTRY(Nbre_voyageurs)));
+	strcpy(Prix_voly,gtk_entry_get_text(GTK_ENTRY(Prix_vol)));
+	strcpy(Id_voly,gtk_entry_get_text(GTK_ENTRY(Id_vol)));
+	
+	confirmer(Ville_departy, Ville_arriveey, Joury, Moisy, Anneey, Duree_voly, Classey, Nbre_voyageursy, Prix_voly, Id_voly);
+	window2=create_window2();
+	gtk_widget_show (window2);
+	current=lookup_widget(objet,"window3");
+	gtk_widget_hide(current);
+	liste=lookup_widget(window2,"treeview1");
+	afficher_vol(liste);
+}
+*/
+
+
+
+void
+on_supprimer_clicked                   (GtkWidget       *objet,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window4;
+
+window=lookup_widget(objet,"window");
+window4=create_window4();
+gtk_widget_show(window4);
+gtk_widget_hide(window);
+}
+
+
+void
+on_supprr_clicked                      (GtkWidget       *objet,
+                                        gpointer         user_data)
+{
+GtkWidget *input120;
+ Vol p;
+
+            char ch1[50];
+            FILE *f1 ;
+            FILE *ftempvol;
+input120=lookup_widget(objet,"entrysupmod");
+            strcpy(ch1,gtk_entry_get_text(GTK_ENTRY(input120)));
+ftempvol=fopen ("/home/rihab/projectvol/tempvol.txt","a+");
+f1=fopen("/home/rihab/projectvol/uservol.txt","a+");
+char pVille_depart[20], pVille_arrivee[20], pJour[20], pMois[20], pAnnee[20], pDuree_vol[20], pClasse[20], pNbre_voyageurs[20], pPrix_vol[20], pId_vol[20];
+
+
+                       while (fscanf(f1,"%s %s %s %s %s %s %s %s \n",pVille_depart, pVille_arrivee, pJour, pDuree_vol, pClasse, pNbre_voyageurs, pPrix_vol, pId_vol)!=EOF)
+{ 
+if (strcmp(ch1,pId_vol)!=0)
+{
+fprintf(ftempvol,"%s %s %s %s %s %s %s %s\n",pVille_depart, pVille_arrivee, pJour, pDuree_vol, pClasse, pNbre_voyageurs, pPrix_vol, pId_vol);
+}
+} 
+fclose(ftempvol);
+fclose(f1);
+remove ("/home/rihab/projectvol/uservol.txt");
+rename ("/home/rihab/projectvol/tempvol.txt","/home/rihab/projectvol/uservol.txt");
+}
+
+
+
+
+/*void
+on_modifr_clicked                      (GtkWidget       *objet,
+                                        gpointer         user_data)
+{
+           GtkWidget *window6y;
+            GtkWidget *window7y;
+            GtkWidget *input16y, *output16y;
+	    personne p;
+            char ch[50];
+            FILE* f ;
+            window6y=lookup_widget(objet_graphique, "window6y");
+            input16y=lookup_widget(objet_graphique,"entry21y");
+            output16y=lookup_widget(objet_graphique,"label59y");
+            strcpy(ch,gtk_entry_get_text(GTK_ENTRY(input16y)));
+f=fopen("/home/yassmine/Projects/project1/src/ajout.txt","r");
+while (fscanf(f,"%s %s %s %s %s %s %s %s %s %s %s %s\n",p.nom,p.prenom,p.cin,p.jour,p.mois,p.annee,p.sexe,p.taille,p.poids,p.imc,p.clas,p.regime)!=EOF)
+{ 
+if (strcmp(ch,p.cin)==0)
+{
+             window7y = create_window7y ();
+             gtk_widget_show(window7y);
+             gtk_widget_hide(window6y);
+}
+else
+{gtk_label_set_text(GTK_LABEL(output16y),"cin incompatible");}
+}
+}
+*/
+
+
+
+void
+on_button4return_clicked               (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"window1");
+gtk_widget_hide(window);
+window1=create_window();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_retour1enterid_clicked              (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"window4");
+gtk_widget_hide(window);
+window1=create_window();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button1gestionvol_clicked           (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"window5");
+gtk_widget_hide(window);
+window1=create_window();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_modifyvol1_clicked                  (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *input120;
+FILE *idtemp ;
+FILE *uservol;
+int a=0;
+char x[50];
+input120=lookup_widget(button,"entrysupmod");
+strcpy(x,gtk_entry_get_text(GTK_ENTRY(input120)));
+idtemp=fopen ("/home/rihab/projectvol/idtemp.txt","a+");
+uservol=fopen ("/home/rihab/projectvol/uservol.txt","a+");
+char pVille_depart[20], pVille_arrivee[20], pJour[20], pMois[20], pAnnee[20], pDuree_vol[20], pClasse[20], pNbre_voyageurs[20], pPrix_vol[20], pId_vol[20];
+ while (fscanf(uservol,"%s %s %s %s %s %s %s %s \n",pVille_depart, pVille_arrivee, pJour, pDuree_vol, pClasse, pNbre_voyageurs, pPrix_vol, pId_vol)!=EOF)
+{ 
+if (strcmp(x,pId_vol)==0)
+{
+fprintf(idtemp,"%s",x);
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"window4");
+gtk_widget_hide(window);
+window1=create_window3();
+gtk_widget_show_all(window1);
+a=1;
+
+
+}
+}
+fclose(idtemp);
+fclose(uservol);
+if (a==0){
+
+char ext[50];
+GtkWidget *output;
+strcpy(ext,"id n'existe pas");
+output=lookup_widget(button,"label34");
+gtk_label_set_text(GTK_LABEL(output),ext);
+}
+}
+
+
+void
+on_buttonconfirm_clicked               (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+FILE *idtemp ;
+FILE *uservol;
+FILE *ftempvol;
+
+idtemp=fopen ("/home/rihab/projectvol/idtemp.txt","a+");
+char x[20];
+
+fscanf(idtemp,"%s",x);
+
+ftempvol=fopen ("/home/rihab/projectvol/tempvol.txt","a+");
+uservol=fopen ("/home/rihab/projectvol/uservol.txt","a+");
+
+
+char pVille_depart[20], pVille_arrivee[20], pJour[20], pMois[20], pAnnee[20], pDuree_vol[20], pClasse[20], pNbre_voyageurs[20], pPrix_vol[20], pId_vol[20];
+
+
+                       while (fscanf(uservol,"%s %s %s %s %s %s %s %s \n",pVille_depart, pVille_arrivee, pJour, pDuree_vol, pClasse, pNbre_voyageurs, pPrix_vol, pId_vol)!=EOF)
+{ 
+if (strcmp(x,pId_vol)!=0)
+{
+fprintf(ftempvol,"%s %s %s %s %s %s %s %s\n",pVille_depart, pVille_arrivee, pJour, pDuree_vol, pClasse, pNbre_voyageurs, pPrix_vol, pId_vol);
+}
+}
+char a[20],b[20],c[50],d[50],e[50],f[50],g[50],h[50],i[50],j[50];
+
+GtkWidget *input1;
+GtkWidget *input2;
+GtkWidget *input3;
+GtkWidget *input4;
+
+GtkWidget *combobox4;
+GtkWidget *combobox5;
+GtkWidget *combobox6;
+GtkWidget *spinbutton123;
+GtkWidget *spinbutton223;
+GtkWidget *spinbutton323;
+
+spinbutton123=lookup_widget(button, "spinbutton123");
+spinbutton223=lookup_widget(button, "spinbutton223");
+spinbutton323=lookup_widget(button, "spinbutton323");
+input1= lookup_widget(button,"entry123");
+input2= lookup_widget(button,"entry223");
+input3= lookup_widget(button,"entry323");
+input4= lookup_widget(button,"entry423");
+
+strcpy(a,gtk_entry_get_text(GTK_ENTRY(input1)));
+
+strcpy(b,gtk_entry_get_text(GTK_ENTRY(input2)));
+
+strcpy(c,gtk_entry_get_text(GTK_ENTRY(input3)));
+
+strcpy(d,gtk_entry_get_text(GTK_ENTRY(input4)));
+
+int JJ=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton123));
+int MM=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton223));
+int AA=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton323));
+
+combobox4=lookup_widget(button, "combobox4");
+combobox5=lookup_widget(button, "combobox5");
+combobox6=lookup_widget(button, "combobox6");
+
+char role[20];
+strcpy(role,gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox4)));
+
+char role1[20];
+strcpy(role1,gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox5)));
+
+char role2[20];
+strcpy(role2,gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox6)));
+
+fprintf(ftempvol,"%s %s %d/%d/%d %s %s %s %s %s",role,role1,JJ,MM,AA,a,role2,b,c,d);
+
+fclose(idtemp);
+fclose(ftempvol);
+fclose(uservol);
+remove ("/home/rihab/projectvol/idtemp.txt");
+remove ("/home/rihab/projectvol/uservol.txt");
+rename ("/home/rihab/projectvol/tempvol.txt","/home/rihab/projectvol/uservol.txt");
 
 }
 
 
 void
-on_buttonhome_clicked                  (GtkWidget        *button,
+on_button5_clicked                     (GtkWidget       *button,
                                         gpointer         user_data)
-{GtkWidget *window;
-GtkWidget *modification2;
-window=lookup_widget(button,"modification2");
-gtk_widget_hide(window);
-modification2=create_aceuil();
-gtk_widget_show_all(modification2);
+{
 
 }
+
+
+void
+on_button9hotel_clicked                (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"window6");
+gtk_widget_hide(window);
+window1=create_window7();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button6hotel_clicked                (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window9;
+GtkWidget *treeview22;
+window=lookup_widget(button,"window6");
+gtk_widget_hide(window);
+window9=create_window9();
+gtk_widget_show_all(window9);
+treeview22=lookup_widget(window9,"treeview22");
+	afficher_hotel(treeview22);
+}
+
+
+void
+on_button7hotel_clicked                (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"window6");
+gtk_widget_hide(window);
+window1=create_window10();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button8hotel_clicked                (GtkButton       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_button13hotel_clicked               (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"window7");
+gtk_widget_hide(window);
+window1=create_window6();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button12hotel_clicked               (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *input1;
+GtkWidget *input2;
+GtkWidget *input3;
+GtkWidget *input4;
+GtkWidget *spinbutton327hotel;
+GtkWidget *spinbutton329hotel;
+GtkWidget *spinbutton328hotel;
+GtkWidget *combobox11hotel;
+FILE *hotel;
+char a[20], b[20], c[20], d[20], e[20], f[20], g[20],h[20];
+
+
+spinbutton327hotel=lookup_widget(button, "spinbutton327hotel");
+int jourjour=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton327hotel));
+
+spinbutton329hotel=lookup_widget(button, "spinbutton329hotel");
+int moismois=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton329hotel));
+
+spinbutton328hotel=lookup_widget(button, "spinbutton328hotel");
+int anneeannee=gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spinbutton328hotel));
+
+input1=lookup_widget(button,"entry429hotel");
+strcpy(a,gtk_entry_get_text(GTK_ENTRY(input1)));
+
+input2=lookup_widget(button,"entry431hotel");
+strcpy(b,gtk_entry_get_text(GTK_ENTRY(input2)));
+
+input3=lookup_widget(button,"entry432hotel");
+strcpy(c,gtk_entry_get_text(GTK_ENTRY(input3)));
+
+combobox11hotel=lookup_widget(button, "combobox11hotel");
+strcpy(d,gtk_combo_box_get_active_text(GTK_COMBO_BOX(combobox11hotel)));
+
+input4=lookup_widget(button,"entry433hotel");
+strcpy(e,gtk_entry_get_text(GTK_ENTRY(input4)));
+
+
+hotel=fopen("/home/rihab/projectvol/hotel.txt","a+");
+fprintf(hotel,"%s %s %d %d %d %s %s %s\n",a,b,jourjour,moismois,anneeannee,d,c,e);
+fclose(hotel);
+
+}
+
+
+void
+on_button2hotel_clicked                (GtkButton       *button,
+                                        gpointer         user_data)
+{
+GtkWidget *window;
+GtkWidget *window1;
+window=lookup_widget(button,"window5");
+gtk_widget_hide(window);
+window1=create_window6();
+gtk_widget_show_all(window1);
+}
+
+
+void
+on_button15hotel_clicked               (GtkButton       *button,
+                                        gpointer         user_data)
+
+{
+GtkWidget *window7;
+GtkWidget *window10;
+GtkWidget *input160, *output160;
+	   
+            char cp[50];
+           FILE *f3 ;
+           FILE *fhotel;
+            window7=lookup_widget(button,"window7");
+            input160=lookup_widget(button,"entry428hotel");
+            output160=lookup_widget(button,"label6432");
+            strcpy(cp,gtk_entry_get_text(GTK_ENTRY(input160)));
+       f3=fopen("/home/rihab/projectvol/hotel.txt","r");
+char ville[20], hotel[20], jour[20], mois[20], annee[20], gamme[20], id_hotel[20], tarif[20];
+while (fscanf(f3,"%s %s %s %s %s %s %s %s \n",ville, hotel, jour, mois, annee, gamme, id_hotel, tarif)!=EOF)
+{ 
+if (strcmp(cp,id_hotel)==0)
+{
+             window7 = create_window7();
+             gtk_widget_show(window7);
+             gtk_widget_hide(window10);
+}
+else
+{gtk_label_set_text(GTK_LABEL(output160),"id incompatible");}
+}
+
+
+void
+on_button13shotel_clicked              (GtkButton       *button,
+                                        gpointer         user_data)
+
+
+{ 
+
+GtkWidget *input80;
+
+            char ch[50];
+            FILE *f2 ;
+            FILE *fhotel;
+input80=lookup_widget(button,"entry428hotel");
+            strcpy(ch,gtk_entry_get_text(GTK_ENTRY(input80)));
+fhotel=fopen ("/home/rihab/projectvol/hotel.txt","a+");
+f2=fopen("/home/rihab/projectvol/userhotel.txt","a+");
+char ville[20], hotel[20], jour[20], mois[20], annee[20], gamme[20], id_hotel[20], tarif[20];
+
+
+                       while (fscanf(f2,"%s %s %s %s %s %s %s %s \n",ville, hotel, jour, mois, annee, gamme, id_hotel, tarif)!=EOF)
+{ 
+if (strcmp(ch,id_hotel)!=0)
+{
+fprintf(fhotel,"%s %s %s %s %s %s %s %s\n",ville, hotel, jour, mois, annee,gamme, id_hotel, tarif);}
+ }
+fclose(fhotel);
+fclose(f2);
+remove ("/home/rihab/projectvol/userhotel.txt");
+rename ("/home/rihab/projectvol/hotel.txt","/home/rihab/projectvol/userhotel.txt");
+
+}
+
+
+ 
+
+}
+
+
+
+
 
